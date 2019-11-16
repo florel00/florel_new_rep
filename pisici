@@ -1,0 +1,49 @@
+felix = {
+  'breed': 'tomberonez',
+  'name': 'Felix',
+  'age': 1
+}
+
+toulouse = {
+  'breed': 'british short hair',
+  'name': 'Toulouse',
+  'age': 7
+}
+
+def save_a_cat(cat):
+  with open('matze.csv', 'a') as file_out:
+    file_out.write(f'{cat["breed"]},{cat["name"]},{cat["age"]}\n')
+  print('A cat was saved :)')
+
+
+def get_the_cats():
+  output = {}
+  with open('matze.csv', 'r') as file_in:
+    all_cats = file_in.read().split('\n')
+  
+  for cat_str in all_cats:
+    # british short hair,Toulouse,7
+    if cat_str == '':
+      continue
+
+    cat_as_list = cat_str.split(',')
+    
+    cat = {
+      'breed': cat_as_list[0],
+      'name': cat_as_list[1],
+      'age': int(cat_as_list[2])
+    }
+    output[cat['name']] = cat
+  
+  return output
+
+
+
+#print(sorted(catsDict.values, key= lambda x: x['name']))
+
+#--- MAIN ---
+
+save_a_cat(felix)
+save_a_cat(toulouse)
+catsDict = get_the_cats()
+print(catsDict)
